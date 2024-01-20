@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ui/main.qml</file>
+        <file>ui/scene/Home.qml</file>
+        <file>ui/scene/Setting.qml</file>
+        <file>ui/scene/ChatBox.qml</file>
+        <file>img/login.png</file>
+        <file>ui/scene/Layout.qml</file>
+        <file>img/setting.png</file>
+        <file>ui/component/ButtonImage.qml</file>
+        <file>img/connected.png</file>
+        <file>img/disconnected.png</file>
+        <file>ui/component/BorderBase.qml</file>
+        <file>ui/component/Setting/ListSetting.qml</file>
+        <file>img/bg_icon.png</file>
+        <file>img/connect.png</file>
+        <file>img/username.png</file>
+        <file>ui/component/Setting/Content.qml</file>
+        <file>ui/component/TextInputBase.qml</file>
+        <file>img/ok.png</file>
+        <file>img/home.png</file>
+        <file>ui/component/Home/LoginInput.qml</file>
+        <file>img/login_password.png</file>
+        <file>img/login_user.png</file>
+        <file>ui/component/ButtonText.qml</file>
+        <file>img/login_hide.png</file>
+        <file>img/login_show.png</file>
+        <file>ui/component/PopupNotify.qml</file>
+        <file>ui/component/ChatBox/MessageInput.qml</file>
+        <file>img/record.png</file>
+        <file>img/recording.png</file>
+        <file>ui/component/ChatBox/MessageContent.qml</file>
+        <file>ui/component/ChatBox/MessageItem.qml</file>
+        <file>ui/scene/SignUp.qml</file>
+    </qresource>
+</RCC>
