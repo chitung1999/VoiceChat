@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "../../component"
 
 Item {
     id: root
@@ -49,17 +50,26 @@ Item {
         }
     }
 
+    ButtonImage {
+        id: audio
+        anchors.verticalCenter: box.verticalCenter
+        source: "qrc:/img/audio.png"
+        onClickButton: CTRL.audio(root.message)
+    }
+
     states: [
         State {
             name: "CURRENT"
             PropertyChanges {target: name_id; text:""; height: 0}
             PropertyChanges {target: box; anchors.leftMargin: root.width - box.width - 30; color: "#5ca5d1"}
+            PropertyChanges {target: audio; anchors.right: box.left; anchors.rightMargin: 20}
             PropertyChanges {target: message_id; color: "#000"}
         },
         State {
             name: "OTHER"
             PropertyChanges {target: name_id; text: root.name}
             PropertyChanges {target: box; anchors.leftMargin: 30; color: "#eeeeee"}
+                        PropertyChanges {target: audio; anchors.left: box.right; anchors.leftMargin: 20}
             PropertyChanges {target: message_id; color: "#000"}
         }
     ]

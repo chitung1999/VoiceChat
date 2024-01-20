@@ -253,6 +253,55 @@ void Controller::disconnect()
     emit requestDisconnect();
 }
 
+void Controller::record()
+{
+    if(m_isRecording) {
+        setIsRecording(false);
+        m_recorder.stop();
+        QThread workerThread;
+        QtConcurrent::run([&]() {
+            QStringList arguments;
+            arguments << "--request" << "POST"
+                      << "--url" << URL_API
+                      << "--header" << QString("Authorization: Bearer ") + KEY_API
+                      << "-F" << "file=@" + PATH_DATA + "/audio.wav"
+                      << "-F" << "diarization=false"
+                      << "-F" << "numSpeakers=2"
+                      << "-F" << "fileType=wav"
+                      << "-F" << "language=en"
+                      << "-F" << "task=transcribe";
+
+            QProcess process;
+            process.setProgram("curl");
+            process.setArguments(arguments);
+            process.start();
+            process.waitForFinished();
+
+            QByteArray output = process.readAllStandardOutput();
+            QJsonDocument jData = QJsonDocument::fromJson(output);
+            QJsonObject objData = jData.object();
+            emit finishRecording(objData["text"].toString());
+        });
+        workerThread.wait();
+
+    } else {
+        QStringList audioInputs = m_recorder.audioInputs();
+        if (audioInputs.isEmpty()) {
+            qDebug() << "No audio input devices available.";
+            return;
+        }
+        m_recorder.setAudioInput(audioInputs.first());
+        m_recorder.setOutputLocation(QUrl::fromLocalFile(PATH_DATA + "/audio.wav"));
+        m_recorder.record();
+        setIsRecording(true);
+    }
+}
+
+void Controller::audio(QString text)
+{
+    m_speech.say(text);
+}
+
 void Controller::requestSendMessage(QString message)
 {
     if (!m_isConnected) {
@@ -268,7 +317,7 @@ void Controller::requestSendMessage(QString message)
     emit requestSendData(jdata);
 
     MessageItem item(m_username, message, true);
-        m_message.append(item);
+    m_message.append(item);
 }
 
 void Controller::requestLogin(QString username, QString password)

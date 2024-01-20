@@ -1,4 +1,4 @@
-QT += quick core
+QT += quick core multimedia concurrent texttospeech
 
 CONFIG += c++11
 

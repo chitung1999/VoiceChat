@@ -8,6 +8,11 @@
 #include <QJsonObject>
 #include <QThread>
 #include <QDir>
+#include <QAudioRecorder>
+#include <QUrl>
+#include <QProcess>
+#include <QtConcurrent>
+#include <QTextToSpeech>
 #include "common/AppEnum.h"
 #include "common/Define.h"
 #include "common/FileControl.h"
@@ -75,6 +80,8 @@ signals:
     void requestDisconnect();
     void requestSendData(QJsonDocument data);
 
+    void finishRecording(QString message);
+
 public slots:
     void requestScene(int state);
     void requestSendMessage(QString message);
@@ -86,6 +93,8 @@ public slots:
 
     void doConnect();
     void disconnect();
+    void record();
+    void audio(QString text);
 
     void requestLogin(QString username, QString password);
     void requestSignUp(QString username, QString password, QString re_password);
@@ -100,6 +109,8 @@ private:
     ~Controller();
 
     MessageModel m_message;
+    QAudioRecorder m_recorder;
+    QTextToSpeech m_speech;
     TCPClient *m_TCPClient;
     QThread *m_thread;
     QJsonObject m_dataJson;

@@ -32,5 +32,6 @@
         <file>ui/component/ChatBox/MessageContent.qml</file>
         <file>ui/component/ChatBox/MessageItem.qml</file>
         <file>ui/scene/SignUp.qml</file>
+        <file>img/audio.png</file>
     </qresource>
 </RCC>

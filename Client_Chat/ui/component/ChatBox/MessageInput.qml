@@ -25,6 +25,7 @@ Item {
         }
         scalePressed: 0.9
         source: CTRL.isRecording ? "qrc:/img/recording.png" : "qrc:/img/record.png"
+        onClickButton: CTRL.record()
     }
 
     TextInput {
@@ -52,5 +53,12 @@ Item {
         visible: input.text == ""
         font.pixelSize: 35
         text: "Aa"
+    }
+
+    Connections {
+        target: CTRL
+        function onFinishRecording(text) {
+            input.text = text
+        }
     }
 }
